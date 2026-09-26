@@ -1,3 +1,17 @@
+# Known data points
+#         ↓
+# Build Vandermonde matrix
+#         ↓
+# Solve V*a = y
+#         ↓
+# Find a0, a1, a2
+#         ↓
+# Construct P(x)
+#         ↓
+# Verify original points
+#         ↓
+# Predict P(1.5)
+
 import numpy as np
 
 
@@ -18,8 +32,13 @@ n = len(x_points)
 V = []
 
 for x in x_points:
-    row = []
+    row = [] # For each one 0, 1 and 2, we make a new row:
+    # For \(x=0\):\[[0^0,0^1,0^2] = [1,0,0]
 
+
+
+
+     
     for power in range(n):
         row.append(x ** power)
 
@@ -31,13 +50,14 @@ print(V)
 
 
 # 3. Convert lists to NumPy arrays
+# Before this, V is a normal Python list.
+ #After this, it becomes a NumPy matrix-like array.
 
-
-V = np.array(V, dtype=float)
+V = np.array(V, dtype=float) #with float data type, and y is a NumPy array of the y_points with float data type. This allows us to perform linear algebra operations on them.
 y = np.array(y_points, dtype=float)
 
 
-# -------------------------------------------------
+
 # 4. Solve the linear system
 #
 # V * a = y
@@ -49,9 +69,12 @@ y = np.array(y_points, dtype=float)
 # and:
 #
 # P(x) = a0 + a1*x + a2*x^2
-# -------------------------------------------------
 
-coefficients = np.linalg.solve(V, y)
+#Mathematically Python is solving:\[Va=y\]
+
+
+
+coefficients = np.linalg.solve(V, y) # a0 , a1 and a2 are the coefficients of the polynomial. The np.linalg.solve function is used to solve the linear system of equations represented by the Vandermonde matrix V and the vector y. The result is stored in the coefficients variable, which contains the values of a0, a1, and a2 that define the interpolation polynomial P(x).
 
 print("\nPolynomial coefficients:")
 print(coefficients)
